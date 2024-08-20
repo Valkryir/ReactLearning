@@ -1,0 +1,11 @@
+services:
+  tic-tac-toe:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tic-tac-toe
+    ports:
+      - 3000:3000
+    volumes:
+      - ./src:/app/src
+    tty: true

@@ -1,9 +1,16 @@
-export default function App() {
+import {useDispatch, useSelector} from 'react-redux';
+import {addTask, updateTaskDescription, updateTaskTitle} from "./store/task/taskActions";
+import store from "./store/store";
 
+export default function App() {
     const boards = [
             {
                 'title' : "todo",
                 'cards' : [
+                    {
+                        'title' : "Card One",
+                        'description' : 'Do the thing'
+                    },
                     {
                         'title' : "Card One",
                         'description' : 'Do the thing'
@@ -37,18 +44,25 @@ export default function App() {
             }
     ];
 
+    const dispatch = useDispatch();
+
+    boards.forEach((board) => {
+        dispatch(addTask(board))
+    })
+
+
     const listItems = boards.map(board => <Board title={board.title} cards={board.cards} />)
 
-  return (
-    <div className="h-dvh bg-sand w-screen text-rich-black">
-        <div className="text-5xl p-4">
-            Kanban Board
+    return (
+        <div className="h-dvh bg-sand w-screen text-rich-black">
+            <div className="text-5xl p-4">
+                Kanban Board
+            </div>
+            <div className="grid grid-cols-3 gap-5 p-5">
+                {listItems}
+            </div>
         </div>
-        <div className="grid grid-cols-3 gap-5 p-5">
-            {listItems}
-        </div>
-    </div>
-  );
+    );
 }
 
 function Board({title, cards}) {
